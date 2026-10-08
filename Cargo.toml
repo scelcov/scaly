@@ -15,6 +15,8 @@ upscale-mcp = { path = "crates/upscale-mcp" }
 
 anyhow = "1"
 axum = "0.8"
+http-body-util = "0.1"
+tower = { version = "0.5", features = ["util"] }
 clap = { version = "4", features = ["derive"] }
 rmcp = { version = "3.5", features = ["server", "macros", "transport-io"] }
 schemars = "1"

@@ -86,3 +86,74 @@ fn job_json(job: &Job) -> Result<String, String> {
     instructions = "Queue local image and video upscale jobs. The GPU pipeline is not connected yet; jobs stay queued."
 )]
 impl ServerHandler for UpscaleServer {}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn server() -> UpscaleServer {
+        UpscaleServer::new(JobStore::default())
+    }
+
+    #[test]
+    fn upscale_image_can_be_read_back_by_id() {
+        // Arrange
+        let server = server();
+        let params = UpscaleParams {
+            input_path: "frame.png".to_owned(),
+            output_path: "frame-2x.png".to_owned(),
+        };
+
+        // Act
+        let created = server
+            .upscale_image(Parameters(params))
+            .expect("queue image");
+        let created_json: serde_json::Value = serde_json::from_str(&created).expect("json");
+        let id = created_json["id"].as_str().expect("id").to_owned();
+        let fetched = server
+            .job_status(Parameters(JobIdParams { job_id: id.clone() }))
+            .expect("status");
+
+        // Assert
+        let fetched_json: serde_json::Value = serde_json::from_str(&fetched).expect("status json");
+        assert_eq!(fetched_json["id"], id);
+        assert_eq!(fetched_json["request"]["kind"], "image");
+        assert_eq!(fetched_json["status"], "queued");
+    }
+
+    #[test]
+    fn job_status_rejects_a_non_uuid() {
+        // Arrange
+        let server = server();
+
+        // Act
+        let err = server
+            .job_status(Parameters(JobIdParams {
+                job_id: "nope".to_owned(),
+            }))
+            .expect_err("bad id");
+
+        // Assert
+        assert!(err.contains("uuid"));
+    }
+
+    #[test]
+    fn list_jobs_includes_a_queued_video() {
+        // Arrange
+        let server = server();
+        server
+            .upscale_video(Parameters(UpscaleParams {
+                input_path: "film.mkv".to_owned(),
+                output_path: "film-4k.mkv".to_owned(),
+            }))
+            .expect("queue video");
+
+        // Act
+        let listed = server.list_jobs().expect("list");
+
+        // Assert
+        let jobs: Vec<serde_json::Value> = serde_json::from_str(&listed).expect("list json");
+        assert_eq!(jobs.len(), 1);
+        assert_eq!(jobs[0]["request"]["kind"], "video");
+    }
+}

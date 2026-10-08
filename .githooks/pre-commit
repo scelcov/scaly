@@ -1,0 +1,13 @@
+#!/bin/sh
+# rustfmt checks formatting. clippy is the linter.
+set -eu
+
+cd "$(git rev-parse --show-toplevel)"
+
+if [ -x "$HOME/.cargo/bin/cargo" ]; then
+    PATH="$HOME/.cargo/bin:$PATH"
+    export PATH
+fi
+
+cargo fmt --all --check
+cargo clippy --workspace --all-targets -- -D warnings

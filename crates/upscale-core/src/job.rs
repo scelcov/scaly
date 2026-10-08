@@ -29,6 +29,12 @@ impl JobId {
     }
 }
 
+impl Default for JobId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl fmt::Display for JobId {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self.0)
@@ -99,5 +105,79 @@ impl JobStore {
     pub fn list(&self) -> Result<Vec<Job>, Error> {
         let jobs = self.jobs.read()?;
         Ok(jobs.values().cloned().collect())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn image_request() -> UpscaleRequest {
+        UpscaleRequest {
+            kind: MediaKind::Image,
+            input_path: PathBuf::from("in.png"),
+            output_path: PathBuf::from("out.png"),
+        }
+    }
+
+    #[test]
+    fn create_then_get_returns_the_same_queued_job() {
+        // Arrange
+        let store = JobStore::default();
+
+        // Act
+        let created = store.create(image_request()).expect("create job");
+        let fetched = store.get(&created.id).expect("fetch job");
+
+        // Assert
+        assert_eq!(fetched, created);
+        assert_eq!(fetched.status, JobStatus::Queued);
+    }
+
+    #[test]
+    fn two_creates_receive_different_ids() {
+        // Arrange
+        let store = JobStore::default();
+
+        // Act
+        let first = store.create(image_request()).expect("first job");
+        let second = store.create(image_request()).expect("second job");
+
+        // Assert
+        assert_ne!(first.id, second.id);
+    }
+
+    #[test]
+    fn get_missing_job_returns_not_found() {
+        // Arrange
+        let store = JobStore::default();
+        let id = JobId::new();
+
+        // Act
+        let err = store.get(&id).expect_err("missing job");
+
+        // Assert
+        assert!(matches!(err, Error::NotFound(_)));
+    }
+
+    #[test]
+    fn parse_rejects_a_non_uuid() {
+        // Act
+        let err = JobId::parse("not-a-uuid").expect_err("invalid id");
+
+        // Assert
+        assert!(matches!(err, Error::InvalidJobId));
+    }
+
+    #[test]
+    fn parsed_id_displays_the_same_text() {
+        // Arrange
+        let raw = "550e8400-e29b-41d4-a716-446655440000";
+
+        // Act
+        let id = JobId::parse(raw).expect("valid uuid");
+
+        // Assert
+        assert_eq!(id.to_string(), raw);
     }
 }

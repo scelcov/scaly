@@ -19,3 +19,13 @@ cargo run -p upscale -- mcp
 ```
 
 `serve` listens on `127.0.0.1:8787`. `mcp` speaks MCP on stdin/stdout. Each process has its own job table.
+
+## Tests and hooks
+
+```bash
+cargo test --workspace
+cp .githooks/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+The hook runs `cargo fmt --all --check` and `cargo clippy --workspace --all-targets -- -D warnings`.
