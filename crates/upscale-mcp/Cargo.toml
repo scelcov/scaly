@@ -7,8 +7,11 @@ license.workspace = true
 description = "MCP tools an agent uses to queue upscale jobs"
 
 [dependencies]
+base64.workspace = true
 rmcp.workspace = true
 schemars.workspace = true
+tokio.workspace = true
+tracing.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 upscale-core.workspace = true

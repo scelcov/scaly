@@ -22,6 +22,8 @@ struct CreateJobBody {
     kind: MediaKind,
     input_path: String,
     output_path: String,
+    #[serde(default)]
+    scale: Option<u8>,
 }
 
 async fn create_job(
@@ -32,6 +34,7 @@ async fn create_job(
         kind: body.kind,
         input_path: body.input_path.into(),
         output_path: body.output_path.into(),
+        scale: upscale_core::parse_scale(body.scale)?,
     })?;
     Ok((StatusCode::ACCEPTED, Json(job)))
 }
@@ -60,7 +63,12 @@ impl axum::response::IntoResponse for ApiError {
     fn into_response(self) -> axum::response::Response {
         let status = match self.0 {
             Error::InvalidJobId | Error::NotFound(_) => StatusCode::NOT_FOUND,
-            Error::LockPoisoned => StatusCode::INTERNAL_SERVER_ERROR,
+            Error::InputNotFound
+            | Error::SamePath
+            | Error::NoChatImage
+            | Error::NoChatVideo
+            | Error::InvalidScale => StatusCode::BAD_REQUEST,
+            Error::LockPoisoned | Error::Upscale(_) => StatusCode::INTERNAL_SERVER_ERROR,
         };
         (status, self.0.to_string()).into_response()
     }

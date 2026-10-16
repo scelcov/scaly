@@ -14,16 +14,18 @@ upscale-http = { path = "crates/upscale-http" }
 upscale-mcp = { path = "crates/upscale-mcp" }
 
 anyhow = "1"
+base64 = "0.22"
 axum = "0.8"
 http-body-util = "0.1"
 tower = { version = "0.5", features = ["util"] }
 clap = { version = "4", features = ["derive"] }
-rmcp = { version = "3.5", features = ["server", "macros", "transport-io"] }
+rmcp = { version = "3.5", features = ["server", "macros", "transport-io", "transport-streamable-http-server"] }
 schemars = "1"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 thiserror = "2"
-tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal", "fs"] }
+tokio-util = { version = "0.7", features = ["io"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 uuid = { version = "1", features = ["v4", "serde"] }

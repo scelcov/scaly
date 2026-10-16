@@ -7,6 +7,7 @@ fn video_request() -> UpscaleRequest {
         kind: MediaKind::Video,
         input_path: PathBuf::from("in.mkv"),
         output_path: PathBuf::from("out.mkv"),
+        scale: 2,
     }
 }
 
@@ -21,6 +22,7 @@ fn list_contains_each_created_job() {
             kind: MediaKind::Image,
             input_path: PathBuf::from("still.png"),
             output_path: PathBuf::from("still-out.png"),
+            scale: 2,
         })
         .expect("image job");
     let video = store.create(video_request()).expect("video job");

@@ -1,0 +1,26 @@
+use_default_settings:
+  engines:
+    keep_only:
+      - duckduckgo web
+      - mwmbl
+      - wikipedia
+
+server:
+  secret_key: "change-me"
+  limiter: false
+  public_instance: false
+  image_proxy: false
+
+search:
+  safe_search: 1
+  formats:
+    - html
+    - json
+
+outgoing:
+  request_timeout: 3.0
+  max_request_timeout: 6.0
+
+engines:
+  - name: mwmbl
+    disabled: false

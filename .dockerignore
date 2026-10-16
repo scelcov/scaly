@@ -1,0 +1,8 @@
+.git
+target
+deploy/librechat/data-node
+deploy/librechat/meili_data_v1.35.1
+deploy/librechat/images
+deploy/librechat/uploads
+deploy/librechat/logs
+deploy/librechat/.env

@@ -1,0 +1,450 @@
+# https://www.librechat.ai/docs/configuration/librechat_yaml
+version: 1.3.17
+
+interface:
+  webSearch: true
+  memories: true
+  modelSelect: true
+  theme:
+    version: 1
+    name: slack
+    brands:
+      provider-foreground: "#FFFFFF"
+      provider-openai: "linear-gradient(180deg, #7C3085, #3F0E40)"
+      provider-openai-gpt4: "linear-gradient(180deg, #FFC806, #FFF8D4)"
+      provider-openai-reasoning: "linear-gradient(180deg, #EABDFB, #611F69)"
+      provider-anthropic: "linear-gradient(180deg, #4CC894, #0B6E4F)"
+      provider-azure: "linear-gradient(180deg, #36C5F0, #1164A3)"
+      provider-bedrock: "linear-gradient(180deg, #ECB22E, #E01E5A)"
+    modes:
+      dark:
+        colors:
+          rgb-text-primary: "249 237 255"
+          rgb-text-secondary: "234 189 251"
+          rgb-text-secondary-alt: "234 189 251"
+          rgb-text-tertiary: "234 189 251"
+          rgb-text-muted: "186 150 196"
+          rgb-badge-label: "249 237 255"
+          rgb-text-warning: "255 196 120"
+          rgb-text-destructive: "255 176 190"
+          rgb-shimmer-base: "249 237 255"
+          rgb-shimmer-dip: "186 150 196"
+          rgb-link: "234 189 251"
+          rgb-link-hover: "249 237 255"
+          rgb-link-visited: "234 189 251"
+          rgb-link-prose: "234 189 251"
+          rgb-accent-primary: "234 189 251"
+          rgb-accent-primary-hover: "249 237 255"
+          rgb-ring-primary: "234 189 251"
+          rgb-focus-outline: "234 189 251"
+          rgb-focus-control: "234 189 251"
+          rgb-header-primary: "124 48 133"
+          rgb-header-hover: "97 31 105"
+          rgb-header-button-hover: "97 31 105"
+          rgb-surface-active: "124 48 133"
+          rgb-surface-active-alt: "97 31 105"
+          rgb-surface-hover: "97 31 105"
+          rgb-surface-hover-alt: "124 48 133"
+          rgb-surface-pressed: "74 21 75"
+          rgb-surface-composer-hover: "97 31 105"
+          rgb-surface-primary: "74 21 75"
+          rgb-chart-widget-surface: "63 14 64"
+          rgb-chart-widget-stroke: "97 31 105"
+          rgb-surface-primary-alt: "63 14 64"
+          rgb-surface-primary-contrast: "97 31 105"
+          rgb-surface-secondary: "74 21 75"
+          rgb-surface-secondary-alt: "97 31 105"
+          rgb-surface-tertiary: "63 14 64"
+          rgb-surface-tertiary-alt: "74 21 75"
+          rgb-surface-dialog: "74 21 75"
+          rgb-dialog-title: "249 237 255"
+          rgb-surface-overlay: "28 6 30"
+          rgb-surface-media-overlay: "28 6 30"
+          rgb-text-on-media: "249 237 255"
+          rgb-surface-submit: "234 189 251"
+          rgb-surface-submit-hover: "249 237 255"
+          rgb-surface-destructive: "205 37 83"
+          rgb-surface-destructive-hover: "176 28 68"
+          rgb-surface-chat: "63 14 64"
+          rgb-surface-code: "42 10 46"
+          rgb-surface-code-body: "42 10 46"
+          rgb-surface-code-inline: "124 48 133"
+          rgb-prose-bullet: "234 189 251"
+          rgb-prose-quote-bar: "234 189 251"
+          rgb-surface-qr: "249 237 255"
+          rgb-surface-inverted: "234 189 251"
+          rgb-surface-inverted-hover: "249 237 255"
+          rgb-surface-inverted-pressed: "214 160 236"
+          rgb-button-primary: "234 189 251"
+          rgb-button-primary-hover: "249 237 255"
+          rgb-text-inverted: "63 14 64"
+          rgb-surface-fixed: "249 237 255"
+          rgb-surface-fixed-hover: "74 21 75"
+          rgb-text-fixed: "63 14 64"
+          rgb-border-light: "97 31 105"
+          rgb-border-medium: "97 31 105"
+          rgb-border-medium-alt: "124 48 133"
+          rgb-border-heavy: "124 48 133"
+          rgb-border-xheavy: "234 189 251"
+          rgb-drawer-edge: "74 21 75"
+          rgb-border-destructive: "205 37 83"
+          rgb-border-control: "124 48 133"
+          rgb-border-field-focus: "234 189 251"
+          rgb-focus-subtle: "234 189 251"
+          rgb-field-fill: "63 14 64"
+          rgb-field-text: "249 237 255"
+          rgb-surface-tooltip: "28 6 30"
+          rgb-text-tooltip: "249 237 255"
+          rgb-alert-error-fill: "74 20 40"
+          rgb-alert-error-border: "205 37 83"
+          rgb-surface-canvas: "48 10 52"
+          rgb-surface-user-message: "74 21 75"
+          rgb-surface-card: "74 21 75"
+          rgb-surface-card-hover: "97 31 105"
+          rgb-surface-nav-hover: "97 31 105"
+          rgb-surface-nav-selected: "124 48 133"
+          rgb-surface-tab-selected: "97 31 105"
+          rgb-surface-menu: "74 21 75"
+          rgb-surface-popover: "74 21 75"
+          rgb-border-menu: "97 31 105"
+          rgb-surface-composer: "74 21 75"
+          rgb-surface-search: "63 14 64"
+          rgb-surface-disabled: "63 14 64"
+          rgb-text-disabled: "186 150 196"
+          rgb-border-disabled: "74 21 75"
+          rgb-status-success: "76 200 148"
+          rgb-status-success-subtle: "24 64 52"
+          rgb-status-success-border: "76 200 148"
+          rgb-status-success-strong: "76 200 148"
+          rgb-status-info: "17 100 163"
+          rgb-status-info-subtle: "16 36 64"
+          rgb-status-info-border: "17 100 163"
+          rgb-status-info-strong: "17 100 163"
+          rgb-status-warning: "255 196 120"
+          rgb-status-warning-subtle: "74 42 24"
+          rgb-status-warning-border: "255 196 120"
+          rgb-status-warning-strong: "255 196 120"
+          rgb-status-error: "205 37 83"
+          rgb-status-error-subtle: "74 20 40"
+          rgb-status-error-border: "205 37 83"
+          rgb-status-error-strong: "176 28 68"
+          rgb-status-neutral: "186 150 196"
+          rgb-status-neutral-subtle: "74 21 75"
+          rgb-status-neutral-border: "97 31 105"
+          rgb-status-verified: "76 200 148"
+          rgb-text-on-status: "63 14 64"
+          rgb-brand-purple: "234 189 251"
+          rgb-avatar-fill: "97 31 105"
+          rgb-avatar-text: "249 237 255"
+          rgb-avatar-placeholder: "74 21 75"
+          rgb-avatar-edge: "234 189 251"
+          rgb-illustration-subtle: "97 31 105"
+          rgb-illustration: "234 189 251"
+          rgb-illustration-strong: "249 237 255"
+          rgb-file-document: "234 189 251"
+          rgb-file-sheet: "76 200 148"
+          rgb-file-code: "17 100 163"
+          rgb-file-artifact: "234 189 251"
+          rgb-file-audio: "255 196 120"
+          rgb-file-video: "205 37 83"
+          rgb-file-generic: "186 150 196"
+          rgb-file-ink: "249 237 255"
+          rgb-syntax-text: "249 237 255"
+          rgb-syntax-comment: "186 150 196"
+          rgb-syntax-meta: "234 189 251"
+          rgb-syntax-builtin: "234 189 251"
+          rgb-syntax-keyword: "255 176 190"
+          rgb-syntax-string: "76 200 148"
+          rgb-syntax-attr: "255 196 120"
+          rgb-syntax-title: "249 237 255"
+          rgb-series-1: "234 189 251"
+          rgb-series-2: "76 200 148"
+          rgb-series-3: "17 100 163"
+          rgb-series-4: "255 196 120"
+          rgb-series-5: "205 37 83"
+          rgb-series-6: "249 237 255"
+          rgb-series-7: "124 48 133"
+          rgb-series-8: "97 31 105"
+          rgb-switch-unchecked: "97 31 105"
+          rgb-switch-thumb: "249 237 255"
+          rgb-table-header-text: "249 237 255"
+          rgb-table-header-fill: "74 21 75"
+          rgb-presentation: "63 14 64"
+        appearance:
+          controlRadius: 8px
+          roundControlRadius: 999px
+          surfaceRadius: 12px
+          largeSurfaceRadius: 16px
+          menuRadius: 12px
+          popoverRadius: 12px
+          composerActionRadius: 999px
+          radiusSm: 8px
+          radiusMd: 12px
+          radiusLg: 16px
+          fieldFillStyle: fill
+          fieldFocusStyle: border
+          destructiveStyle: fill
+          fontFamily: "Lato, ui-sans-serif, system-ui, sans-serif"
+      light:
+        colors:
+          rgb-text-primary: "89 16 53"
+          rgb-text-secondary: "74 21 75"
+          rgb-text-secondary-alt: "74 21 75"
+          rgb-text-tertiary: "74 21 75"
+          rgb-text-muted: "120 64 90"
+          rgb-badge-label: "89 16 53"
+          rgb-text-warning: "140 70 16"
+          rgb-text-destructive: "176 28 68"
+          rgb-shimmer-base: "89 16 53"
+          rgb-shimmer-dip: "120 64 90"
+          rgb-link: "89 16 53"
+          rgb-link-hover: "63 14 64"
+          rgb-link-visited: "89 16 53"
+          rgb-link-prose: "89 16 53"
+          rgb-accent-primary: "89 16 53"
+          rgb-accent-primary-hover: "63 14 64"
+          rgb-ring-primary: "89 16 53"
+          rgb-focus-outline: "89 16 53"
+          rgb-focus-control: "89 16 53"
+          rgb-header-primary: "255 200 6"
+          rgb-header-hover: "255 214 64"
+          rgb-header-button-hover: "255 214 64"
+          rgb-surface-active: "255 200 6"
+          rgb-surface-active-alt: "255 214 64"
+          rgb-surface-hover: "255 214 64"
+          rgb-surface-hover-alt: "255 200 6"
+          rgb-surface-pressed: "255 235 132"
+          rgb-surface-composer-hover: "255 214 64"
+          rgb-surface-primary: "255 235 132"
+          rgb-chart-widget-surface: "255 243 196"
+          rgb-chart-widget-stroke: "232 196 64"
+          rgb-surface-primary-alt: "255 243 196"
+          rgb-surface-primary-contrast: "232 196 64"
+          rgb-surface-secondary: "255 235 132"
+          rgb-surface-secondary-alt: "255 214 64"
+          rgb-surface-tertiary: "255 243 196"
+          rgb-surface-tertiary-alt: "255 235 132"
+          rgb-surface-dialog: "255 235 132"
+          rgb-dialog-title: "89 16 53"
+          rgb-surface-overlay: "89 16 53"
+          rgb-surface-media-overlay: "89 16 53"
+          rgb-text-on-media: "89 16 53"
+          rgb-surface-submit: "89 16 53"
+          rgb-surface-submit-hover: "63 14 64"
+          rgb-surface-destructive: "176 28 68"
+          rgb-surface-destructive-hover: "140 20 52"
+          rgb-surface-chat: "255 243 196"
+          rgb-surface-code: "255 243 196"
+          rgb-surface-code-body: "255 243 196"
+          rgb-surface-code-inline: "255 200 6"
+          rgb-prose-bullet: "74 21 75"
+          rgb-prose-quote-bar: "89 16 53"
+          rgb-surface-qr: "255 248 212"
+          rgb-surface-inverted: "89 16 53"
+          rgb-surface-inverted-hover: "63 14 64"
+          rgb-surface-inverted-pressed: "74 21 75"
+          rgb-button-primary: "89 16 53"
+          rgb-button-primary-hover: "63 14 64"
+          rgb-text-inverted: "255 248 212"
+          rgb-surface-fixed: "255 248 212"
+          rgb-surface-fixed-hover: "255 235 132"
+          rgb-text-fixed: "89 16 53"
+          rgb-border-light: "232 196 64"
+          rgb-border-medium: "232 196 64"
+          rgb-border-medium-alt: "89 16 53"
+          rgb-border-heavy: "89 16 53"
+          rgb-border-xheavy: "89 16 53"
+          rgb-drawer-edge: "255 235 132"
+          rgb-border-destructive: "176 28 68"
+          rgb-border-control: "89 16 53"
+          rgb-border-field-focus: "89 16 53"
+          rgb-focus-subtle: "89 16 53"
+          rgb-field-fill: "255 243 196"
+          rgb-field-text: "89 16 53"
+          rgb-surface-tooltip: "89 16 53"
+          rgb-text-tooltip: "89 16 53"
+          rgb-alert-error-fill: "255 226 220"
+          rgb-alert-error-border: "176 28 68"
+          rgb-surface-canvas: "255 252 236"
+          rgb-surface-user-message: "255 235 132"
+          rgb-surface-card: "255 235 132"
+          rgb-surface-card-hover: "255 214 64"
+          rgb-surface-nav-hover: "255 214 64"
+          rgb-surface-nav-selected: "255 200 6"
+          rgb-surface-tab-selected: "255 214 64"
+          rgb-surface-menu: "255 235 132"
+          rgb-surface-popover: "255 235 132"
+          rgb-border-menu: "232 196 64"
+          rgb-surface-composer: "255 235 132"
+          rgb-surface-search: "255 243 196"
+          rgb-surface-disabled: "255 243 196"
+          rgb-text-disabled: "120 64 90"
+          rgb-border-disabled: "255 235 132"
+          rgb-status-success: "22 120 80"
+          rgb-status-success-subtle: "220 245 230"
+          rgb-status-success-border: "22 120 80"
+          rgb-status-success-strong: "22 120 80"
+          rgb-status-info: "17 100 163"
+          rgb-status-info-subtle: "220 236 250"
+          rgb-status-info-border: "17 100 163"
+          rgb-status-info-strong: "17 100 163"
+          rgb-status-warning: "140 70 16"
+          rgb-status-warning-subtle: "255 236 200"
+          rgb-status-warning-border: "140 70 16"
+          rgb-status-warning-strong: "140 70 16"
+          rgb-status-error: "176 28 68"
+          rgb-status-error-subtle: "255 226 220"
+          rgb-status-error-border: "176 28 68"
+          rgb-status-error-strong: "140 20 52"
+          rgb-status-neutral: "120 64 90"
+          rgb-status-neutral-subtle: "255 235 132"
+          rgb-status-neutral-border: "232 196 64"
+          rgb-status-verified: "22 120 80"
+          rgb-text-on-status: "255 248 212"
+          rgb-brand-purple: "89 16 53"
+          rgb-avatar-fill: "255 214 64"
+          rgb-avatar-text: "89 16 53"
+          rgb-avatar-placeholder: "255 235 132"
+          rgb-avatar-edge: "89 16 53"
+          rgb-illustration-subtle: "232 196 64"
+          rgb-illustration: "89 16 53"
+          rgb-illustration-strong: "89 16 53"
+          rgb-file-document: "89 16 53"
+          rgb-file-sheet: "22 120 80"
+          rgb-file-code: "17 100 163"
+          rgb-file-artifact: "89 16 53"
+          rgb-file-audio: "140 70 16"
+          rgb-file-video: "176 28 68"
+          rgb-file-generic: "120 64 90"
+          rgb-file-ink: "89 16 53"
+          rgb-syntax-text: "89 16 53"
+          rgb-syntax-comment: "120 64 90"
+          rgb-syntax-meta: "74 21 75"
+          rgb-syntax-builtin: "89 16 53"
+          rgb-syntax-keyword: "176 28 68"
+          rgb-syntax-string: "22 120 80"
+          rgb-syntax-attr: "140 70 16"
+          rgb-syntax-title: "89 16 53"
+          rgb-series-1: "89 16 53"
+          rgb-series-2: "22 120 80"
+          rgb-series-3: "17 100 163"
+          rgb-series-4: "140 70 16"
+          rgb-series-5: "176 28 68"
+          rgb-series-6: "89 16 53"
+          rgb-series-7: "255 200 6"
+          rgb-series-8: "255 214 64"
+          rgb-switch-unchecked: "232 196 64"
+          rgb-switch-thumb: "255 248 212"
+          rgb-table-header-text: "89 16 53"
+          rgb-table-header-fill: "255 235 132"
+          rgb-presentation: "255 243 196"
+        appearance:
+          controlRadius: 8px
+          roundControlRadius: 999px
+          surfaceRadius: 12px
+          largeSurfaceRadius: 16px
+          menuRadius: 12px
+          popoverRadius: 12px
+          composerActionRadius: 999px
+          radiusSm: 8px
+          radiusMd: 12px
+          radiusLg: 16px
+          fieldFillStyle: fill
+          fieldFocusStyle: border
+          destructiveStyle: fill
+          fontFamily: "Lato, ui-sans-serif, system-ui, sans-serif"
+memory:
+  disabled: false
+  personalize: true
+  tokenLimit: 2000
+  messageWindowSize: 8
+  agent:
+    enabled: true
+    provider: Deepseek
+    model: deepseek-flash
+
+modelSpecs:
+  enforce: false
+  prioritize: true
+  list:
+    - name: deepseek-flash
+      label: DeepSeek Flash
+      default: true
+      memory: true
+      webSearch: true
+      mcpServers:
+        - firecrawl
+      description: DeepSeek Flash
+      preset:
+        endpoint: Deepseek
+        model: deepseek-flash
+    - name: deepseek-v4-pro
+      label: DeepSeek V4 Pro
+      memory: true
+      webSearch: true
+      mcpServers:
+        - firecrawl
+      description: DeepSeek V4 Pro
+      preset:
+        endpoint: Deepseek
+        model: deepseek-v4-pro
+
+endpoints:
+  custom:
+    - name: "Deepseek"
+      apiKey: "${DEEPSEEK_API_KEY}"
+      baseURL: "https://api.deepseek.com/v1"
+      models:
+        default: ["deepseek-flash", "deepseek-v4-pro"]
+        fetch: false
+      titleConvo: true
+      titleModel: "deepseek-flash"
+      modelDisplayLabel: "Deepseek"
+
+webSearch:
+  searchProvider: searxng
+  searxngInstanceUrl: "${SEARXNG_INSTANCE_URL}"
+  searxngSearchOptions:
+    engines:
+      - duckduckgo web
+      - mwmbl
+      - wikipedia
+    timeout: 8000
+  scraperProvider: firecrawl
+  firecrawlApiKey: "${FIRECRAWL_API_KEY}"
+  firecrawlVersion: "${FIRECRAWL_VERSION}"
+  scraperTimeout: 15000
+  rerankerType: none
+  safeSearch: 1
+  allowedAddresses:
+    - searxng:8080
+  firecrawlOptions:
+    formats: ["markdown"]
+    onlyMainContent: true
+    blockAds: true
+    removeBase64Images: true
+    storeInCache: true
+    maxAge: 172800000
+    timeout: 15000
+
+mcpSettings:
+  allowedAddresses:
+    - upscale:8788
+
+mcpServers:
+  firecrawl:
+    title: Firecrawl
+    type: streamable-http
+    url: https://mcp.firecrawl.dev/v2/mcp
+    headers:
+      Authorization: "Bearer ${FIRECRAWL_API_KEY}"
+    chatMenu: true
+    serverInstructions: true
+    timeout: 60000
+    initTimeout: 20000
+  upscale:
+    type: streamable-http
+    url: http://upscale:8788/mcp
+    serverInstructions: true
+    timeout: 600000
+    initTimeout: 20000

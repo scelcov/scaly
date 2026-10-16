@@ -1,0 +1,73 @@
+# LibreChat talks to the upscale container. Phones open UPSCALE_PUBLIC_URL.
+services:
+  api:
+    volumes:
+      - type: bind
+        source: ./librechat.yaml
+        target: /app/librechat.yaml
+      - type: bind
+        source: ./index.html
+        target: /app/client/dist/index.html
+        read_only: true
+      - type: bind
+        source: ./theme-toggle.js
+        target: /app/client/dist/theme-toggle.js
+        read_only: true
+      - type: bind
+        source: ./usage-meter.js
+        target: /app/client/dist/usage-meter.js
+        read_only: true
+      - type: bind
+        source: ./chat-fade.js
+        target: /app/client/dist/chat-fade.js
+        read_only: true
+  deepseek-usage:
+    container_name: deepseek-usage
+    image: node:22-alpine
+    restart: always
+    ports:
+      - "8790:8790"
+    environment:
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+    volumes:
+      - ./usage-meter-server.js:/opt/server.js:ro
+    command: ["node", "/opt/server.js"]
+  upscale:
+    container_name: upscale
+    build:
+      context: ../..
+      dockerfile: deploy/upscale/Dockerfile
+    restart: always
+    ports:
+      - "8788:8788"
+    environment:
+      UPSCALE_INBOX: /data/images
+      UPSCALE_PUBLIC_URL: ${UPSCALE_PUBLIC_URL:-http://127.0.0.1:8788}
+    volumes:
+      - ./images:/data/images
+      - ./uploads:/data/uploads
+      - upscale-out:/tmp/upscale-out
+    devices:
+      - /dev/dri:/dev/dri
+  # Phones install the chat from this HTTPS name. A token pins the hostname.
+  # Without one, the command in this file is a temporary trycloudflare.com tunnel.
+  cloudflared:
+    container_name: cloudflared
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    depends_on:
+      - api
+    command: tunnel --no-autoupdate --url http://api:3080
+  searxng:
+    container_name: searxng
+    image: docker.io/searxng/searxng:latest
+    restart: always
+    environment:
+      SEARXNG_BASE_URL: http://searxng:8080/
+    volumes:
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - searxng-cache:/var/cache/searxng
+
+volumes:
+  upscale-out:
+  searxng-cache:

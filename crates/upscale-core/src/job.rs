@@ -60,14 +60,31 @@ pub enum MediaKind {
 #[serde(rename_all = "snake_case")]
 pub enum JobStatus {
     Queued,
+    Running,
+    Completed,
+    Failed,
 }
 
-/// What an agent asks the service to upscale. Paths stay local; the GPU step is not wired yet.
+/// What an agent asks the service to upscale. Paths stay on this machine.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct UpscaleRequest {
     pub kind: MediaKind,
     pub input_path: PathBuf,
     pub output_path: PathBuf,
+    /// Integer multiplier applied to width and height. Only 2, 3, or 4.
+    pub scale: u8,
+}
+
+/// Accepts a missing scale as 2. Rejects every other value.
+///
+/// # Errors
+///
+/// Returns [`Error::InvalidScale`] when `value` is outside 2..=4.
+pub fn parse_scale(value: Option<u8>) -> Result<u8, Error> {
+    match value.unwrap_or(2) {
+        scale @ 2..=4 => Ok(scale),
+        _ => Err(Error::InvalidScale),
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -75,6 +92,8 @@ pub struct Job {
     pub id: JobId,
     pub request: UpscaleRequest,
     pub status: JobStatus,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
 }
 
 /// In-memory jobs for one process. Lost on exit until a store is added.
@@ -89,9 +108,25 @@ impl JobStore {
             id: JobId::new(),
             request,
             status: JobStatus::Queued,
+            error: None,
         };
         self.jobs.write()?.insert(job.id.clone(), job.clone());
         Ok(job)
+    }
+
+    pub fn update(
+        &self,
+        id: &JobId,
+        status: JobStatus,
+        error: Option<String>,
+    ) -> Result<Job, Error> {
+        let mut jobs = self.jobs.write()?;
+        let job = jobs
+            .get_mut(id)
+            .ok_or_else(|| Error::NotFound(id.to_string()))?;
+        job.status = status;
+        job.error = error;
+        Ok(job.clone())
     }
 
     pub fn get(&self, id: &JobId) -> Result<Job, Error> {
@@ -117,6 +152,7 @@ mod tests {
             kind: MediaKind::Image,
             input_path: PathBuf::from("in.png"),
             output_path: PathBuf::from("out.png"),
+            scale: 2,
         }
     }
 
