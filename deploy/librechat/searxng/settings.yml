@@ -6,6 +6,8 @@ use_default_settings:
       - wikipedia
 
 server:
+  # up.sh writes the real key into SEARXNG_SECRET. The container copies this file
+  # and replaces the placeholder before SearXNG starts.
   secret_key: "change-me"
   limiter: false
   public_instance: false

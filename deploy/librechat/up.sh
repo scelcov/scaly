@@ -22,6 +22,15 @@ if [ ! -f .env ]; then
         .env
 fi
 
+if ! grep -q '^SEARXNG_SECRET=.\+' .env; then
+    key=$(openssl rand -hex 32)
+    if grep -q '^SEARXNG_SECRET=' .env; then
+        sed -i "s|^SEARXNG_SECRET=.*|SEARXNG_SECRET=${key}|" .env
+    else
+        echo "SEARXNG_SECRET=${key}" >> .env
+    fi
+fi
+
 if ! grep -q '^UPSCALE_PUBLIC_URL=.\+' .env; then
     lan=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{
         for (i = 1; i <= NF; i++) if ($i == "src") { print $(i + 1); exit }

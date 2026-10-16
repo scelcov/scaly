@@ -64,10 +64,24 @@ services:
     restart: always
     environment:
       SEARXNG_BASE_URL: http://searxng:8080/
+      SEARXNG_SECRET: ${SEARXNG_SECRET}
     volumes:
-      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+      - ./searxng/settings.yml:/usr/local/searxng/settings.custom.yml:ro
+      - searxng-config:/etc/searxng
       - searxng-cache:/var/cache/searxng
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -eu
+        if [ -z "$$SEARXNG_SECRET" ]; then
+          echo "SEARXNG_SECRET is empty" >&2
+          exit 1
+        fi
+        cp /usr/local/searxng/settings.custom.yml /etc/searxng/settings.yml
+        sed -i "s/secret_key: \"change-me\"/secret_key: \"$$SEARXNG_SECRET\"/" /etc/searxng/settings.yml
+        exec /usr/local/searxng/entrypoint.sh
 
 volumes:
   upscale-out:
   searxng-cache:
+  searxng-config:
